@@ -1,0 +1,11 @@
+---
+gitlab_version: 16.9.1-ce.0
+jenkins_version: 2.440.1
+sonarqube_version: lts-community
+postgres_version: 12
+gitlab_network: gitlab
+jenkins_network: jenkins
+sonarqube_network: sonarqube
+postgres_user: sonar
+postgres_password: Son4RQub3
+...
