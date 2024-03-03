@@ -1,4 +1,4 @@
-# Install GitLab, Jenkins and SonarQube with Ansible on Ubuntu 20
+# Install GitLab, Jenkins and SonarQube with Ansible on Ubuntu 20 (Run on Docker)
 ### Adjust with your env
 - #### <i> vars.yaml </i>
 ```
