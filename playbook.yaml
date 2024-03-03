@@ -19,19 +19,19 @@
         state: directory
         mode: 0755
 
-    - name: Add docker gpg key
+    - name: Add Docker gpg key
       ansible.builtin.apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         keyring: /etc/apt/keyrings/docker.gpg
         state: present
 
-    - name: Add docker repository
+    - name: Add Docker repository
       ansible.builtin.apt_repository:
         repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
         filename: docker
         state: present
 
-    - name: Install docker and required packages
+    - name: Install Docker and required packages
       ansible.builtin.apt:
         pkg:
           - docker-ce
@@ -44,7 +44,7 @@
         update_cache: true
       register: docker_install
 
-    - name: Restart docker 
+    - name: Restart Docker 
       ansible.builtin.service:
         name: docker
         state: restarted
@@ -152,7 +152,7 @@
       when: inventory_hostname == 'gitlab'
     
     - name: Build image for Jenkins
-      ansible.builtin.shell:
+      ansible.builtin.command:
         cmd: docker build -t jenkins-blueocean:{{ jenkins_version }} .
         chdir: /opt/jenkins
       when: inventory_hostname == 'jenkins'
@@ -242,20 +242,21 @@
 
     - name: Get default password for GitLab
       ansible.builtin.command: docker exec gitlab grep 'Password:' /etc/gitlab/initial_root_password
-      register: gitlab
+      register: gitlab_pass
       when: inventory_hostname == 'gitlab'
 
     - name: Show password for GitLab
       ansible.builtin.debug:
-        var: gitlab.stdout
+        var: gitlab_pass.stdout
       when: inventory_hostname == 'gitlab'
 
     - name: Get default password for Jenkins
       ansible.builtin.command: docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
-      register: jenkins
+      register: jenkins_pass
       when: inventory_hostname == 'jenkins'
 
     - name: Show password for Jenkins
       ansible.builtin.debug:
-        var: jenkins.stdout
+        var: jenkins_pass.stdout
       when: inventory_hostname == 'jenkins'
+...
