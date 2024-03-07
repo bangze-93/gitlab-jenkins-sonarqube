@@ -114,7 +114,8 @@
       when: inventory_hostname == 'sonarqube'
 
     - name: Reload sysctl for SonarQube
-      ansible.builtin.command: sysctl --system 
+      ansible.builtin.command: 
+       cmd: sysctl --system 
       when: inventory_hostname == 'sonarqube'
 
     - name: Create a network for GitLab
@@ -241,7 +242,8 @@
       when: inventory_hostname == 'sonarqube'
 
     - name: Get default password for GitLab
-      ansible.builtin.command: docker exec gitlab grep 'Password:' /etc/gitlab/initial_root_password
+      ansible.builtin.command: 
+        cmd: docker exec gitlab grep 'Password:' /etc/gitlab/initial_root_password
       register: gitlab_pass
       when: inventory_hostname == 'gitlab'
 
@@ -251,7 +253,8 @@
       when: inventory_hostname == 'gitlab'
 
     - name: Get default password for Jenkins
-      ansible.builtin.command: docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
+      ansible.builtin.command: 
+        cmd: docker exec jenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
       register: jenkins_pass
       when: inventory_hostname == 'jenkins'
 
