@@ -23,9 +23,9 @@ sonarqube ansible_host=192.168.200.43
 
 [all:vars]
 ansible_connection=ssh
-ansible_user=ubuntu
-ansible_ssh_pass=ubuntu123
-ansible_become_password=ubuntu123
+ansible_user=user
+ansible_ssh_pass=password
+ansible_become_password=password
 ```
 ### Run playbook
 ``` bash
